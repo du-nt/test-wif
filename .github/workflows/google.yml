@@ -3,18 +3,9 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GAR_LOCATION: us-central1 # TODO: update region of the Artifact Registry
-  GKE_CLUSTER: cluster-1    # TODO: update to cluster name
-  GKE_ZONE: us-central1-c   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  REPOSITORY: samples # TODO: update to Artifact Registry docker repository
-  IMAGE: static-site
-
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: Generate an access token an authenticate
     runs-on: ubuntu-latest
     environment: production
 
@@ -32,8 +23,8 @@ jobs:
       uses: 'google-github-actions/auth@v2'
       with:
         token_format: 'access_token'
-        workload_identity_provider: 'projects/399377201308/locations/global/workloadIdentityPools/new-github/providers/new-github'
-        service_account: 'new-gh-action@rational-aria-416911.iam.gserviceaccount.com'
+        workload_identity_provider: '${{ secrets.WIP_PROVIDER }}'
+        service_account: '${{ secrets.SERVICE_ACCOUNT }}'
 
     # Run gcloud commands
     - id: 'gcloud'
