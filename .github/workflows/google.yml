@@ -4,10 +4,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  setup-build-publish-deploy:
-    name: Generate an access token an authenticate
+  deploy:
     runs-on: ubuntu-latest
-    environment: production
 
     permissions:
       contents: 'read'
@@ -30,4 +28,4 @@ jobs:
     - id: 'gcloud'
       name: 'gcloud'
       run: |-
-        gcloud secrets list
+        gcloud secrets versions access "latest" --secret "testkey"
