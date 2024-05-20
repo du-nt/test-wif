@@ -21,8 +21,8 @@ jobs:
       uses: 'google-github-actions/auth@v2'
       with:
         token_format: 'access_token'
-        workload_identity_provider: '${{ secrets.WIP_PROVIDER }}'
-        service_account: '${{ secrets.SERVICE_ACCOUNT }}'
+        workload_identity_provider: 'projects/399377201308/locations/global/workloadIdentityPools/git-action/providers/git-action'
+        service_account: 'git-action@rational-aria-416911.iam.gserviceaccount.com'
 
     # Run gcloud commands
     - id: 'gcloud'
